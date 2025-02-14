@@ -123,7 +123,7 @@ const handleSubMenuClick = (event: Event) => {
   padding: 16px;
   cursor: pointer;
   background: none;
-  color: #038cd9;
+  color: #FDFDFE;
   font-size: 18px;
   font-weight: bold;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -229,7 +229,7 @@ const handleSubMenuClick = (event: Event) => {
   padding: 16px;
   width: auto;
   cursor: pointer;
-  color: #038cd9;
+  color: #FDFDFE;
 }
 
 #menu a:hover,

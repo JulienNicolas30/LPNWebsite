@@ -140,7 +140,8 @@ const socialLinks = [
             v-for="(social, index) in socialLinks"
             :key="index"
             :href="social.url"
-            class="social-icon"
+            class="social-icon" 
+            target="_blank"
           >
             <font-awesome-icon :icon="social.icon" />
           </a>
@@ -187,12 +188,11 @@ const socialLinks = [
 }
 
 .nav-content {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1rem 2rem;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 100%;
   max-width: 100vw;
 }
@@ -201,8 +201,8 @@ const socialLinks = [
   height: 48px;
   display: flex;
   align-items: center;
-  object-fit: contain;  
-}
+  width: auto;
+  }
 
 .logo img {
   height: 100%;
