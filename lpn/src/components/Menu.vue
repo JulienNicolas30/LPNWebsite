@@ -36,7 +36,7 @@ const handleSubMenuClick = (event: Event) => {
   <div class="menu">
     <nav>
       <div class="menu-container">
-        <img src="../assets/logo-horizontal.svg" alt="logo" id="logo" />
+        <img src="/assets/logo-horizontal.svg" alt="logo" id="logo" />
         <ul id="top">
           <li id="menu" v-for="page in pages" :key="page.path">
             <Dropdown
