@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Footer from "./components/Footer.vue";
-import Menu from "./components/Menu.vue";
+// import Footer from "./components/Footer.vue";
+// import Menu from "./components/Menu.vue";
 import { RouterView } from "vue-router";
 import Navigation from "./components/Navigation.vue";
 import Footer2 from "./components/Footer2.vue";
