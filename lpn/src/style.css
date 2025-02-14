@@ -1,0 +1,141 @@
+/* Reset des styles par défaut */
+@font-face {
+  font-family: "NeuePlak-Bold";
+  src: url("./assets/fonts/NeuePlak-Bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: NeuePlak-Bold,Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #00283f;
+  text-rendering: optimizeLegibility;
+  --background1: #C8DAF4;
+  --color1: #335C82;
+
+}
+
+.background1 {
+  background-color: var(--background1);
+}
+
+.background1 .menu {
+  background-color: var(--background1);
+}
+.color1 .card-content {
+  color: var(--color1);
+}
+
+.color1 #title {
+  color: var(--color1);
+}
+
+.color1 .card-title {
+  color: var(--color1);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0;
+}
+
+a {
+  font-weight: 500;
+  color: #fdfdfe;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #b6496d;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  font-family: "NeuePlak-Bold";
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #038cd9;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.card {
+  padding: 2em;
+}
+
+#app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 100vh;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.app-container,
+.menu,
+.page,
+.footer {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+footer {
+  text-align: center;
+  width: 100%;
+  padding: rem 0;
+  background-color: #242424;
+  margin-top: auto;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #00f1f2;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+  footer {
+    background-color: #ffffff;
+  }
+}
