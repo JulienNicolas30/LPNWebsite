@@ -91,7 +91,7 @@ const socialLinks = [
     <div class="nav-content">
       <!-- Logo -->
       <a href="/" class="logo">
-        <img src="../assets/logo-horizontal.svg" alt="Logo" />
+        <img src="/assets/logo-horizontal.svg" alt="Logo" />
       </a>
 
       <!-- Desktop Menu -->

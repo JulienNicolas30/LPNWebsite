@@ -66,28 +66,28 @@ onUnmounted(() => {
         <h3>Nos Partenaires</h3>
         <Vue3Marquee id="partners" class="marquee-container" clone pauseOnHover>
           <a href="https://herault.fr/" target="_blank">
-            <img src="../assets/img/herault.jpg" alt="Partner Logo" />
+            <img src="/assets/img/herault.jpg" alt="Partner Logo" />
           </a>
           <a href="https://www.montpellier.fr/" target="_blank">
             <img
-              src="../assets/img/Ville_de_Montpellier.png"
+              src="/assets/img/Ville_de_Montpellier.png"
               alt="Partner Logo"
             />
           </a>
           <a href="https://flyingfishproduction.com/" target="_blank">
-            <img src="../assets/img/FFLOGO.webp" alt="Partner Logo" />
+            <img src="/assets/img/FFLOGO.webp" alt="Partner Logo" />
           </a>
           <a href="https://www.pedagojeux.fr/" target="_blank">
-            <img src="../assets/img/pedagojeux_logo.webp" alt="Partner Logo" />
+            <img src="/assets/img/pedagojeux_logo.webp" alt="Partner Logo" />
           </a>
           <a href="https://www.promeneursdunet.fr/" target="_blank">
             <img
-              src="../assets/img/PROMENEURS_DU_NET_2.webp"
+              src="/assets/img/PROMENEURS_DU_NET_2.webp"
               alt="Partner Logo"
             />
           </a>
           <a href="https://www.ufcv.fr/" target="_blank">
-            <img src="../assets/img/UFCV.webp" alt="Partner Logo" />
+            <img src="/assets/img/UFCV.webp" alt="Partner Logo" />
           </a>
         </Vue3Marquee>
       </div>

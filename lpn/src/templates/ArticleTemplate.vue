@@ -20,7 +20,7 @@ const articles = computed(() => {
 
 const getImagePath = (imagePath: string) => {
   // Utiliser le chemin statique pour les images
-  return `/src/assets/${imagePath}`;
+  return `/assets/${imagePath}`;
 };
 
 // Ajout des classes de style au body

@@ -1,7 +1,7 @@
 /* Reset des styles par défaut */
 @font-face {
   font-family: "NeuePlak-Bold";
-  src: url("./assets/fonts/NeuePlak-Bold.otf") format("opentype");
+  src: url("/assets/fonts/NeuePlak-Bold.otf") format("opentype");
   font-weight: bold;
   font-style: normal;
 }

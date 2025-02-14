@@ -45,7 +45,7 @@ onMounted(async () => {
 <style scoped>
 @font-face {
   font-family: "NeuePlak-Light";
-  src: url("../assets/fonts/NeuePlak-Light.otf") format("opentype");
+  src: url("/assets/fonts/NeuePlak-Light.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
