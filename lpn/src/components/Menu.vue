@@ -53,6 +53,7 @@ const handleSubMenuClick = (event: Event) => {
               :label="page.title"
               :isOpen="openDropdown === page.path"
               @toggle="toggleDropdown(page.path)"
+              @close="openDropdown = null"
             >
               <template #selector="{ toggle }">
                 <span
@@ -149,10 +150,10 @@ const handleSubMenuClick = (event: Event) => {
   background: none;
   border: none;
   padding: 0.5rem;
-  cursor: pointer;  
+  cursor: pointer;
 }
 
-.theme-toggle:hover {  
+.theme-toggle:hover {
   transform: rotate(180deg);
 }
 
@@ -253,7 +254,7 @@ const handleSubMenuClick = (event: Event) => {
   background-color: transparent;
 }
 .social-icons a:hover {
-  color: #DB5884;
+  color: #db5884;
 }
 
 #top {

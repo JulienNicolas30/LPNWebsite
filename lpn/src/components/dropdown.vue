@@ -9,25 +9,28 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'toggle'): void;
+  (e: 'close'): void;  // Ajout de l'événement close
 }>();
 
 const target = ref();
 const show = ref(props.isOpen);
 
+// Synchroniser l'état show avec la prop isOpen
 watch(() => props.isOpen, (newValue) => {
   show.value = newValue;
 });
 
+// Fermer le dropdown quand un clic se produit à l'extérieur
 onClickOutside(target, () => {
   if (show.value) {
     show.value = false;
-    emit('toggle');
+    emit('close');  // Émettre un événement pour informer que le menu doit se fermer
   }
 });
 
 const toggle = () => {
   show.value = !show.value;
-  emit('toggle');
+  emit('toggle');  // Lorsque le menu est ouvert/fermé, on émet un événement
 };
 
 defineExpose({ toggle });
