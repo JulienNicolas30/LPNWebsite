@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import sourcedata from "./../sitemap.json";
+import { onMounted, onUnmounted, ref } from "vue";
+import sitemap from "./../sitemap.json";
 import Dropdown from "./dropdown.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -10,16 +10,45 @@ import {
   faXTwitter,
   faTwitch,
 } from "@fortawesome/free-brands-svg-icons";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { 
+  faBars,
+  faTimes,
+  faSun,
+  faMoon,
+  faChevronDown,
+} from "@fortawesome/free-solid-svg-icons";
+import { useWindowScroll } from "@vueuse/core";
 
-library.add(faTwitch, faXTwitter, faInstagram, faLinkedin, faChevronDown);
+library.add(
+  faTwitch,
+  faXTwitter,
+  faInstagram,
+  faLinkedin,
+  faBars,
+  faTimes,
+  faChevronDown,
+  faSun,
+  faMoon
+);
 
-const pages = ref(sourcedata.$r);
+const isMenuOpen = ref(false);
+const lastScrollY = ref(0);
+const isNavVisible = ref(true);
+const { y: scrollY } = useWindowScroll();
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+  if (isMenuOpen.value) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+};
 
 const openDropdown = ref<string | null>(null);
 
-const toggleDropdown = (key: string) => {
-  if (openDropdown.value === key) {
+const toggleDropdown = (key: string | null = null) => {
+  if (key === null || openDropdown.value === key) {
     openDropdown.value = null;
   } else {
     openDropdown.value = key;
@@ -36,60 +65,76 @@ const handleSubMenuClick = (event: Event) => {
   event.stopPropagation();
   openDropdown.value = null;
 };
+
+const handleScroll = () => {
+  const currentScrollY = scrollY.value;
+  if (currentScrollY < lastScrollY.value || currentScrollY < 50) toggleDropdown();
+  lastScrollY.value = currentScrollY;
+};
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
 </script>
 
 <template>
-  <div class="menu">
-    <nav>
-      <div class="menu-container">
+  <nav
+    class="nav-container"
+    :class="[{ 'nav-hidden': !isNavVisible }]">
+    <div class="nav-content">
+      <a href="/" :class="{ active: isMenuOpen }">
         <img src="/assets/logo-horizontal.svg" alt="logo" id="logo" />
-        <ul id="top">
-          <li id="menu" v-for="page in pages" :key="page.path">
-            <Dropdown
-              class="dropdown"
-              v-if="page.children"
-              :label="page.title"
-              :isOpen="openDropdown === page.path"
-              @toggle="toggleDropdown(page.path)"
-            >
-              <template #selector="{ toggle }">
-                <span
-                  class="dropdown-label"
-                  :class="{ active: openDropdown === page.path }"
-                  @click="toggle"
+      </a>
+      <nav class="nav-links">
+        <div class="nav-item" v-for="page in sitemap.$r" :key="page.path">
+          <Dropdown
+            v-if="page.children"
+            :label="page.title"
+            :isOpen="openDropdown === page.path"
+            @toggle="toggleDropdown(page.path)"
+          >
+            <template #selector="{ toggle }">
+              <span
+                class="dropdown-label"
+                :class="{ active: openDropdown === page.path }"
+                @click="toggle"
+              >
+                {{ page.title }}
+                <font-awesome-icon
+                  :icon="['fas', 'chevron-down']"
+                  class="dropdown-icon"
+                  :class="{ rotate: openDropdown === page.path }"
+                />
+              </span>
+            </template>
+            <template #default>
+              <div id="submenu">
+                <div
+                  id="submenus"
+                  v-for="subpage in page.children"
+                  :key="subpage.path"
+                  @click="handleSubMenuClick"
                 >
-                  {{ page.title }}
-                  <font-awesome-icon
-                    :icon="['fas', 'chevron-down']"
-                    class="dropdown-icon"
-                    :class="{ rotate: openDropdown === page.path }"
-                  />
-                </span>
-              </template>
-              <template #default>
-                <ul id="submenu">
-                  <li
-                    id="submenus"
-                    v-for="subpage in page.children"
-                    :key="subpage.path"
-                    @click="handleSubMenuClick"
-                  >
-                    <router-link :to="'/' + page.path + '/' + subpage.path">
-                      {{ subpage.title }}
-                    </router-link>
-                  </li>
-                </ul>
-              </template>
-            </Dropdown>
-            <router-link v-else :to="'/' + page.path">
-              {{ page.title }}
-            </router-link>
-          </li>
-          <a href="#" class="adhesion-button">
-            <span>Adhésion</span>
-            <span class="adhesion-button-background"></span>
-          </a>
-        </ul>
+                  <router-link :to="'/' + page.path + '/' + subpage.path">
+                    {{ subpage.title }}
+                  </router-link>
+                </div>
+              </div>
+            </template>
+          </Dropdown>
+          <router-link v-else :to="'/' + page.path">
+            {{ page.title }}
+          </router-link>
+        </div>
+      </nav>
+      <div class="nav-right">
+        <a href="#" class="adhesion-button">
+          Adhésion
+        </a>
         <div class="social-icons">
           <a
             href="https://www.linkedin.com/company/parrainsdunum/"
@@ -106,69 +151,70 @@ const handleSubMenuClick = (event: Event) => {
           <a href="https://www.twitch.tv/team_irc" target="_blank">
             <font-awesome-icon :icon="['fab', 'twitch']" />
           </a>
-          <button @click="toggleDarkMode" class="theme-toggle">
-            <font-awesome-icon :icon="isDarkMode ? 'sun' : 'moon'" />
-          </button>
         </div>
+        <button @click="toggleDarkMode" class="theme-toggle">
+          <font-awesome-icon :icon="isDarkMode ? 'sun' : 'moon'" />
+        </button>
+        <button class="mobile-menu-toggle" @click="toggleMenu">
+          <font-awesome-icon :icon="isMenuOpen ? 'times' : 'bars'" />
+        </button>
       </div>
-    </nav>
-  </div>
+    </div>
+  </nav>
 </template>
 
 <style scoped>
-.adhesion-button {
-  position: relative;
-  background: none;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  color: white;
-  font-weight: 500;
-  overflow: hidden;
-  z-index: 1;
-  border-radius: 32px;
+.nav-hidden {
+  transform: translateY(-100%);
 }
 
-.adhesion-button-background {
-  position: absolute;
-  top: 0;
-  left: 0;
+.nav-container {
   width: 100%;
-  height: 100%;
-  background: #4caf50;
-  border-color: #fdfdfe;
-  z-index: -1;
-  transition: transform 0.3s ease;
-}
-.adhesion-button:hover .adhesion-button-background {
-  transform: scale(1.1);
+  background-color: #004771;
 }
 
-.theme-toggle {
-  background: none;
-  border: none;
-  padding: 0.5rem;
-  cursor: pointer;
-  color: #666;
-  transition: color 0.3s ease;
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 20px;
+  border-bottom: 2px solid #d3d9e3;
 }
 
-.theme-toggle:hover {
-  color: #333;
-  transform: rotate(180deg);
+#logo {
+  height: 96px;
+  width: auto;
+  vertical-align: middle;
 }
 
-
-.dropdown-icon {
-  margin-left: 5px;
-  transition: transform 0.3s ease;
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-grow: 1;
 }
 
-.dropdown-icon.rotate {
-  transform: rotate(180deg);
+.nav-item a,
+.nav-item button {
+  display: block;
+  padding: 16px;
+  user-select: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fdfdfe;
+}
+
+.nav-item a:hover,
+.nav-item button:hover {
+  background-color: #038cd9;
+  color: white;
 }
 
 .dropdown-label {
-  font-family: "NeuePlak-Bold";
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,6 +222,7 @@ const handleSubMenuClick = (event: Event) => {
   text-align: center;
   padding: 16px;
   cursor: pointer;
+  user-select: none;
   background: none;
   color: #fdfdfe;
   font-size: 18px;
@@ -189,116 +236,25 @@ const handleSubMenuClick = (event: Event) => {
   color: white;
 }
 
-#submenu {
-  border: 1px solid #fdfdfe;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: white;
-  padding: 8px 0;
+.dropdown-icon {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
 }
 
-#submenus {
-  padding: 8px 16px;
-}
-
-#submenus:hover {
-  background-color: #f0f0f0;
-}
-
-.menu {
-  width: 100%;
-  background-color: #004771;
-}
-
-.menu-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  width: 100%;
-  border-bottom: 2px solid #d3d9e3;
-}
-
-#logo-container {
-  padding: 10px;
-  list-style: none;
-}
-
-#logo {
-  height: 96px;
-  width: auto;
-  vertical-align: middle;
-}
-
-.social-icons {
-  display: flex;
-  gap: 12px;
-  font-size: 32px;
-  color: #fdfdfe;
-  color: inherit;
-}
-
-.social-icons a,
-.social-icons button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px; /* Ajuste selon tes besoins */
-  height: 40px;
-  border-radius: 50%;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.social-icons button {
-  background-color: transparent; /* Ajuste si besoin */
-}
-
-#top {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  flex-grow: 1;
-}
-
-#menu {
-  font-family: "NeuePlak-Bold";
-  position: middle;
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-#menu a,
-#menu button {
-  display: block;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 16px;
-  width: auto;
-  cursor: pointer;
-  color: #fdfdfe;
-}
-
-#menu a:hover,
-#menu button:hover {
-  background-color: #038cd9;
-  color: white;
+.dropdown-icon.rotate {
+  transform: rotate(180deg);
 }
 
 #submenu {
-  font-family: "NeuePlak-Bold";
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #004771;
-  list-style: none;
   margin: 0;
   padding: 0;
+  background-color: #004771;
+  border: 1px solid #fdfdfe;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #submenus {
@@ -309,23 +265,134 @@ const handleSubMenuClick = (event: Event) => {
   background-color: #038cd9;
 }
 
-@media (max-width: 1024px) {
-  .menu-container {
-    flex-direction: column;
-    padding: 10px;
-  }
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fdfdfe;
+}
 
+.adhesion-button {
+  position: relative;
+  border: 1px solid #fdfdfe;
+  padding: 0.8rem 1.5rem;
+  background: #4caf50;
+  color: white;
+  font-weight: 500;
+  overflow: hidden;
+  z-index: 1;
+  border-radius: 32px;
+  transition: transform 0.3s ease;
+}
+
+.adhesion-button:hover {
+  transform: scale(1.1);
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+  color: #fdfdfe;
+}
+
+.social-icons a,
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Ajuste selon tes besoins */
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+}
+
+.theme-toggle {
+  background: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  color: #333;
+  transform: rotate(180deg);
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 1024px) {
   #logo {
     margin-bottom: 10px;
   }
 
-  #top {
+  .nav-links {
     flex-wrap: wrap;
     justify-content: center;
   }
 
   .social-icons {
     margin-top: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100vh;
+    width: 100%;
+    background: white;
+    flex-direction: column;
+    padding: 2rem;
+    margin: 0;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .social-icons {
+    display: none;
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  .mega-menu {
+    position: static;
+    min-width: 100%;
+    transform: none;
+    box-shadow: none;
+    padding: 1rem 0;
+    margin-top: 1rem;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mega-menu-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .dark .nav-links {
+    background: #1a1a1a;
   }
 }
 </style>
