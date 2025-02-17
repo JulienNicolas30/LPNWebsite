@@ -25,6 +25,12 @@ const toggleDropdown = (key: string) => {
     openDropdown.value = key;
   }
 };
+const isDarkMode = ref(false);
+
+const toggleDarkMode = () => {
+  isDarkMode.value = !isDarkMode.value;
+  document.documentElement.classList.toggle("dark");
+};
 
 const handleSubMenuClick = (event: Event) => {
   event.stopPropagation();
@@ -80,9 +86,9 @@ const handleSubMenuClick = (event: Event) => {
             </router-link>
           </li>
           <a href="#" class="adhesion-button">
-          <span>Adhésion</span>
-          <span class="adhesion-button-background"></span>
-        </a>
+            <span>Adhésion</span>
+            <span class="adhesion-button-background"></span>
+          </a>
         </ul>
         <div class="social-icons">
           <a
@@ -100,6 +106,9 @@ const handleSubMenuClick = (event: Event) => {
           <a href="https://www.twitch.tv/team_irc" target="_blank">
             <font-awesome-icon :icon="['fab', 'twitch']" />
           </a>
+          <button @click="toggleDarkMode" class="theme-toggle">
+            <font-awesome-icon :icon="isDarkMode ? 'sun' : 'moon'" />
+          </button>
         </div>
       </div>
     </nav>
@@ -107,7 +116,6 @@ const handleSubMenuClick = (event: Event) => {
 </template>
 
 <style scoped>
-
 .adhesion-button {
   position: relative;
   background: none;
@@ -127,12 +135,28 @@ const handleSubMenuClick = (event: Event) => {
   width: 100%;
   height: 100%;
   background: #4caf50;
+  border-color: #fdfdfe;
   z-index: -1;
   transition: transform 0.3s ease;
 }
 .adhesion-button:hover .adhesion-button-background {
   transform: scale(1.1);
 }
+
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  color: #333;
+  transform: rotate(180deg);
+}
+
 
 .dropdown-icon {
   margin-left: 5px;
@@ -153,7 +177,7 @@ const handleSubMenuClick = (event: Event) => {
   padding: 16px;
   cursor: pointer;
   background: none;
-  color: #FDFDFE;
+  color: #fdfdfe;
   font-size: 18px;
   font-weight: bold;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -206,16 +230,29 @@ const handleSubMenuClick = (event: Event) => {
   vertical-align: middle;
 }
 
-
-
-
-
 .social-icons {
   display: flex;
   gap: 12px;
   font-size: 32px;
   color: #fdfdfe;
   color: inherit;
+}
+
+.social-icons a,
+.social-icons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Ajuste selon tes besoins */
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.social-icons button {
+  background-color: transparent; /* Ajuste si besoin */
 }
 
 #top {
@@ -244,7 +281,7 @@ const handleSubMenuClick = (event: Event) => {
   padding: 16px;
   width: auto;
   cursor: pointer;
-  color: #FDFDFE;
+  color: #fdfdfe;
 }
 
 #menu a:hover,
