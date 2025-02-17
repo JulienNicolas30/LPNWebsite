@@ -79,7 +79,10 @@ const handleSubMenuClick = (event: Event) => {
               {{ page.title }}
             </router-link>
           </li>
-          <button id="adhesion">ADHÉSION</button>
+          <a href="#" class="adhesion-button">
+          <span>Adhésion</span>
+          <span class="adhesion-button-background"></span>
+        </a>
         </ul>
         <div class="social-icons">
           <a
@@ -104,6 +107,33 @@ const handleSubMenuClick = (event: Event) => {
 </template>
 
 <style scoped>
+
+.adhesion-button {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  color: white;
+  font-weight: 500;
+  overflow: hidden;
+  z-index: 1;
+  border-radius: 32px;
+}
+
+.adhesion-button-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #4caf50;
+  z-index: -1;
+  transition: transform 0.3s ease;
+}
+.adhesion-button:hover .adhesion-button-background {
+  transform: scale(1.1);
+}
+
 .dropdown-icon {
   margin-left: 5px;
   transition: transform 0.3s ease;
@@ -176,24 +206,9 @@ const handleSubMenuClick = (event: Event) => {
   vertical-align: middle;
 }
 
-#adhesion {
-  background-color: #1bd47a;
-  color: #004771;
-  font-family: "NeuePlak-Bold";
-  font-size: 18px;
-  font-weight: bold;
-  padding: 12px 16px;
-  border: #fdfdfe 2px solid;
-  border-radius: 5rem;
-  cursor: pointer;
-  margin-left: 20px;
-  transition: all 1s ease-out;
-}
 
-#adhesion:hover {
-  background-color: #1e4a4a;
-  color: #fdfdfe;
-}
+
+
 
 .social-icons {
   display: flex;
