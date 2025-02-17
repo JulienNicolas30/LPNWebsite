@@ -241,7 +241,7 @@ const handleSubMenuClick = (event: Event) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px; /* Ajuste selon tes besoins */
+  width: 40px;
   height: 40px;
   border-radius: 50%;
   color: white;
@@ -250,7 +250,10 @@ const handleSubMenuClick = (event: Event) => {
 }
 
 .social-icons button {
-  background-color: transparent; /* Ajuste si besoin */
+  background-color: transparent;
+}
+.social-icons a:hover {
+  color: #DB5884;
 }
 
 #top {

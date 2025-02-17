@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted } from "vue";
 import sitemap from "../sitemap.json";
 import { useWindowScroll } from "@vueuse/core";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import {  
+import {
   faLinkedinIn,
   faInstagram,
   faXTwitter,
@@ -74,9 +74,15 @@ onUnmounted(() => {
 
 const socialLinks = [
   { icon: ["fab", "x-twitter"], url: "https://x.com/parrainsdunum" },
-  { icon: ["fab", "linkedin-in"], url: "https://www.linkedin.com/company/parrainsdunum/" },
+  {
+    icon: ["fab", "linkedin-in"],
+    url: "https://www.linkedin.com/company/parrainsdunum/",
+  },
   { icon: ["fab", "instagram"], url: "https://www.instagram.com/team_irc/" },
-  { icon: ["fab", "facebook-f"], url: "https://www.facebook.com/profile.php?id=100066600245148" },
+  {
+    icon: ["fab", "facebook-f"],
+    url: "https://www.facebook.com/profile.php?id=100066600245148",
+  },
 ];
 </script>
 
@@ -140,7 +146,7 @@ const socialLinks = [
             v-for="(social, index) in socialLinks"
             :key="index"
             :href="social.url"
-            class="social-icon" 
+            class="social-icon"
             target="_blank"
           >
             <font-awesome-icon :icon="social.icon" />
@@ -202,7 +208,7 @@ const socialLinks = [
   display: flex;
   align-items: center;
   width: auto;
-  }
+}
 
 .logo img {
   height: 100%;
@@ -330,7 +336,6 @@ const socialLinks = [
   align-items: center;
   justify-content: center;
 }
-
 
 .social-icon::before {
   content: "";
