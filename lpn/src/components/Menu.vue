@@ -42,7 +42,9 @@ const handleSubMenuClick = (event: Event) => {
   <div class="menu">
     <nav>
       <div class="menu-container">
-        <img src="/assets/logo-horizontal.svg" alt="logo" id="logo" />
+        <a href="#"
+          ><img src="/assets/logo-horizontal.svg" alt="logo" id="logo"
+        /></a>
         <ul id="top">
           <li id="menu" v-for="page in pages" :key="page.path">
             <Dropdown
@@ -147,16 +149,12 @@ const handleSubMenuClick = (event: Event) => {
   background: none;
   border: none;
   padding: 0.5rem;
-  cursor: pointer;
-  color: #666;
-  transition: color 0.3s ease;
+  cursor: pointer;  
 }
 
-.theme-toggle:hover {
-  color: #333;
+.theme-toggle:hover {  
   transform: rotate(180deg);
 }
-
 
 .dropdown-icon {
   margin-left: 5px;

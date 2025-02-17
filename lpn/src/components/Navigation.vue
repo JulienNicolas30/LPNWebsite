@@ -331,6 +331,7 @@ const socialLinks = [
   justify-content: center;
 }
 
+
 .social-icon::before {
   content: "";
   position: absolute;
