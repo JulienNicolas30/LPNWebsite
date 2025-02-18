@@ -393,7 +393,7 @@ onUnmounted(() => {
 @media (max-width: 768px) {
   .nav-links {
     position: fixed;
-    top: 0;
+    top: 80px;
     right: -100%;
     height: 100vh;
     width: 100%;

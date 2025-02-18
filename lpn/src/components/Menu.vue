@@ -90,24 +90,24 @@ onUnmounted(() => {
       <a href="/" :class="{ active: isMenuOpen }">
         <img src="/assets/logo-horizontal.svg" alt="logo" id="logo" />
       </a>
-      <nav class="nav-links">
+      <nav class="nav-links" :class="{ active: isMenuOpen }">
         <DropdownMenu :routes="sitemap.$r">
           <template #default="{ item }">
-            <router-link :to="'/' + item.path">
+            <router-link :to="'/' + item.path" class="nav-button">
               {{ item.title }}
             </router-link>
           </template>
           <template #folder="{ item, active }">
-            <div class="dropdown-label" :class="{ active }">
+            <div class="nav-button" :class="{ active }">
               {{ item.title }}
               <font-awesome-icon :icon="['fas', 'chevron-down']"
-                class="dropdown-icon"
+                class="nav-icon"
                 :class="{ rotate: active }"
               />
             </div>
           </template>
           <template #subitem="{ item, subItem }">
-            <router-link :to="'/' + item.path + '/' + subItem.path">
+            <router-link :to="'/' + item.path + '/' + subItem.path" class="nav-button">
               {{ subItem.title }}
             </router-link>
           </template>
@@ -179,57 +179,31 @@ onUnmounted(() => {
   height: 96px;
 }
 
-:deep(.nav-item) {
-  height: 100%;
-}
-
-.nav-item a,
-.nav-item button {
-  display: block;
-  height: 100%;
-  padding: 16px;
-  user-select: none;
-  font-size: 18px;
-  font-weight: bold;
-  align-content: center;
-  color: #fdfdfe;
-}
-
-.nav-item a:hover,
-.nav-item button:hover {
-  background-color: #038cd9;
-  color: white;
-}
-
-.dropdown-label {
+.nav-button {
   display: flex;
-  width: 100%;
-  height: 100%;
   align-items: center;
   justify-content: center;
-  text-align: center;
   padding: 16px;
   cursor: pointer;
   user-select: none;
-  font-size: 18px;
-  font-weight: bold;
   background-color: #004771;
   color: #fdfdfe;
+  font-size: 18px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.dropdown-label:hover,
-.dropdown-label.active {
+.nav-button:hover,
+.nav-button.active {
   background-color: #038cd9;
   color: white;
 }
 
-.dropdown-icon {
+.nav-icon {
   margin-left: 5px;
   transition: transform 0.3s ease;
 }
 
-.dropdown-icon.rotate {
+.nav-icon.rotate {
   transform: rotate(180deg);
 }
 
@@ -243,6 +217,7 @@ onUnmounted(() => {
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 2;
+  transition: all 0.3s ease;
 }
 
 .nav-right {
@@ -316,31 +291,49 @@ onUnmounted(() => {
 
   .nav-links {
     flex-wrap: wrap;
-    justify-content: center;
   }
 
   .social-icons {
     margin-top: 10px;
+  }
+  :deep(.overlay) {
+    min-width: 400px;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
   .nav-links {
     position: fixed;
-    top: 0;
+    top: 106px;
     right: -100%;
-    height: 100vh;
     width: 100%;
+    height: calc(100vh - 80px);
     background: white;
-    flex-direction: column;
-    padding: 2rem;
-    margin: 0;
+    padding: 1rem;
     transition: right 0.3s ease;
     overflow-y: auto;
   }
 
   .nav-links.active {
     right: 0;
+  }
+
+  .nav-button {
+    font-size: 16px;
+    line-height: 8px;
+  }
+
+  a.nav-button {
+    justify-content: unset;
+  }
+
+  div.nav-button {
+    cursor: unset;
+  }
+
+  .nav-icon {
+    display: none;
   }
 
   .mobile-menu-toggle {
@@ -351,24 +344,24 @@ onUnmounted(() => {
     display: none;
   }
 
-  .nav-item {
-    width: 100%;
-  }
-
-  .mega-menu {
+  :deep(.overlay) {
     position: static;
     min-width: 100%;
     transform: none;
     box-shadow: none;
-    padding: 1rem 0;
-    margin-top: 1rem;
+    border: none;
+    border-radius: unset;
+    padding-top: 1rem;
     opacity: 1;
     visibility: visible;
-  }
-
-  .mega-menu-content {
+    translate: 0px;
     grid-template-columns: 1fr;
     gap: 1rem;
+  }
+
+  :deep(.nav-item) {
+    width: 100%;
+    border-top: 1px solid var(--br1-lt-1);
   }
 
   .dark .nav-links {
