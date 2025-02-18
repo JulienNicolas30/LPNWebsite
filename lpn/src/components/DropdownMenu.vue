@@ -22,10 +22,7 @@ const handleMouseLeave = () => {
         :key="index"
         @mouseenter="handleMouseEnter(index)"
         @mouseleave="handleMouseLeave">
-        <div v-if="item.children"
-            :item="item"
-            :index="index"
-            :activeMenu="activeMenu">
+        <template v-if="item.children">
             <slot name="folder" :item="item" :active="activeMenu == index"></slot>
             <div class="overlay" :class="{ active: activeMenu == index }">
                 <div class="subitem"
@@ -34,7 +31,7 @@ const handleMouseLeave = () => {
                     <slot name="subitem" :item="item" :subItem="subItem"></slot>
                 </div>
             </div>
-        </div>
+        </template>
         <slot v-else :item="item" :active="activeMenu == index"></slot>
     </div>
 </template>

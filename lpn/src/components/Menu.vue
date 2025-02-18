@@ -18,6 +18,7 @@ import {
   faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { useWindowScroll } from "@vueuse/core";
+import DropdownMenu from "./DropdownMenu.vue";
 
 library.add(
   faTwitch,
@@ -90,46 +91,27 @@ onUnmounted(() => {
         <img src="/assets/logo-horizontal.svg" alt="logo" id="logo" />
       </a>
       <nav class="nav-links">
-        <div class="nav-item" v-for="page in sitemap.$r" :key="page.path">
-          <Dropdown
-            v-if="page.children"
-            :label="page.title"
-            :isOpen="openDropdown === page.path"
-            @toggle="toggleDropdown(page.path)"
-          >
-            <template #selector="{ toggle }">
-              <span
-                class="dropdown-label"
-                :class="{ active: openDropdown === page.path }"
-                @click="toggle"
-              >
-                {{ page.title }}
-                <font-awesome-icon
-                  :icon="['fas', 'chevron-down']"
-                  class="dropdown-icon"
-                  :class="{ rotate: openDropdown === page.path }"
-                />
-              </span>
-            </template>
-            <template #default>
-              <div id="submenu">
-                <div
-                  id="submenus"
-                  v-for="subpage in page.children"
-                  :key="subpage.path"
-                  @click="handleSubMenuClick"
-                >
-                  <router-link :to="'/' + page.path + '/' + subpage.path">
-                    {{ subpage.title }}
-                  </router-link>
-                </div>
-              </div>
-            </template>
-          </Dropdown>
-          <router-link v-else :to="'/' + page.path">
-            {{ page.title }}
-          </router-link>
-        </div>
+        <DropdownMenu :routes="sitemap.$r">
+          <template #default="{ item }">
+            <router-link :to="'/' + item.path">
+              {{ item.title }}
+            </router-link>
+          </template>
+          <template #folder="{ item, active }">
+            <div class="dropdown-label" :class="{ active }">
+              {{ item.title }}
+              <font-awesome-icon :icon="['fas', 'chevron-down']"
+                class="dropdown-icon"
+                :class="{ rotate: active }"
+              />
+            </div>
+          </template>
+          <template #subitem="{ item, subItem }">
+            <router-link :to="'/' + item.path + '/' + subItem.path">
+              {{ subItem.title }}
+            </router-link>
+          </template>
+        </DropdownMenu>
       </nav>
       <div class="nav-right">
         <a href="#" class="adhesion-button">
@@ -171,6 +153,7 @@ onUnmounted(() => {
 .nav-container {
   width: 100%;
   background-color: #004771;
+  z-index: 1;
 }
 
 .nav-content {
@@ -190,21 +173,25 @@ onUnmounted(() => {
 
 .nav-links {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  list-style: none;
+  flex-grow: 1;
   margin: 0;
   padding: 0;
-  flex-grow: 1;
+  height: 96px;
+}
+
+:deep(.nav-item) {
+  height: 100%;
 }
 
 .nav-item a,
 .nav-item button {
   display: block;
+  height: 100%;
   padding: 16px;
   user-select: none;
   font-size: 18px;
   font-weight: bold;
+  align-content: center;
   color: #fdfdfe;
 }
 
@@ -216,17 +203,18 @@ onUnmounted(() => {
 
 .dropdown-label {
   display: flex;
+  width: 100%;
+  height: 100%;
   align-items: center;
   justify-content: center;
-  width: 100%;
   text-align: center;
   padding: 16px;
   cursor: pointer;
   user-select: none;
-  background: none;
-  color: #fdfdfe;
   font-size: 18px;
   font-weight: bold;
+  background-color: #004771;
+  color: #fdfdfe;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -245,24 +233,16 @@ onUnmounted(() => {
   transform: rotate(180deg);
 }
 
-#submenu {
-  position: absolute;
-  top: 100%;
-  left: 0;
+:deep(.overlay) {
+  width: max-content;
+  min-width: 100%;
   margin: 0;
   padding: 0;
   background-color: #004771;
   border: 1px solid #fdfdfe;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#submenus {
-  padding: 0px;
-}
-
-#submenus:hover {
-  background-color: #038cd9;
+  z-index: 2;
 }
 
 .nav-right {
