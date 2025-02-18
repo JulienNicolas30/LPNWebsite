@@ -66,6 +66,13 @@ const handleMouseLeave = () => {
   activeMenu.value = null;
 };
 
+const socialLinks = [
+  { icon: ["fab", "x-twitter"], url: "https://x.com/parrainsdunum" },
+  { icon: ["fab", "linkedin-in"], url: "https://www.linkedin.com/company/parrainsdunum/" },
+  { icon: ["fab", "instagram"], url: "https://www.instagram.com/team_irc/" },
+  { icon: ["fab", "facebook-f"], url: "https://www.facebook.com/profile.php?id=100066600245148" },
+];
+
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
 });
@@ -73,19 +80,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
-
-const socialLinks = [
-  { icon: ["fab", "x-twitter"], url: "https://x.com/parrainsdunum" },
-  {
-    icon: ["fab", "linkedin-in"],
-    url: "https://www.linkedin.com/company/parrainsdunum/",
-  },
-  { icon: ["fab", "instagram"], url: "https://www.instagram.com/team_irc/" },
-  {
-    icon: ["fab", "facebook-f"],
-    url: "https://www.facebook.com/profile.php?id=100066600245148",
-  },
-];
 </script>
 
 <template>
@@ -111,32 +105,39 @@ const socialLinks = [
           @mouseenter="handleMouseEnter(index)"
           @mouseleave="handleMouseLeave"
         >
-          <router-link :to="'/' + item.path" class="nav-button">
+          <template v-if="item.children">
+            <div class="nav-button">
+              {{ item.title }}
+              <div
+                class="nav-button-line"
+                :class="{ active: activeMenu === index }"
+              ></div>
+            </div>
+            <div
+              class="mega-menu"
+              :class="{ active: activeMenu === index }"
+            >
+              <div class="mega-menu-content">
+                <div
+                  v-for="(subItem, subIndex) in item.children"
+                  :key="subIndex"
+                  class="mega-menu-item"
+                >
+                  <router-link :to="'/' + item.path + '/' + subItem.path">
+                    <h3>{{ subItem.title }}</h3>
+                    <p>{{ subItem.description }}</p>
+                  </router-link>
+                </div>
+              </div>
+            </div>
+          </template>
+          <router-link v-else :to="'/' + item.path" class="nav-button">
             {{ item.title }}
             <div
               class="nav-button-line"
               :class="{ active: activeMenu === index }"
             ></div>
           </router-link>
-
-          <div
-            v-if="item.children"
-            class="mega-menu"
-            :class="{ active: activeMenu === index }"
-          >
-            <div class="mega-menu-content">
-              <div
-                v-for="(subItem, subIndex) in item.children"
-                :key="subIndex"
-                class="mega-menu-item"
-              >
-                <router-link :to="'/' + item.path + '/' + subItem.path">
-                  <h3>{{ subItem.title }}</h3>
-                  <p>{{ subItem.description }}</p>
-                </router-link>
-              </div>
-            </div>
-          </div>
         </div>
       </nav>
 
@@ -162,8 +163,7 @@ const socialLinks = [
 
         <!-- Adhesion Button -->
         <a href="#" class="adhesion-button">
-          <span>Adhésion</span>
-          <span class="adhesion-button-background"></span>
+          Adhésion
         </a>
 
         <!-- Mobile Menu Toggle -->
@@ -181,7 +181,7 @@ const socialLinks = [
   top: 0;
   left: 0;
   width: 100%;
-  background: white;
+  background-color: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   transition: transform 0.3s ease;
@@ -196,12 +196,11 @@ const socialLinks = [
 }
 
 .nav-content {
-  margin: 0 auto;
-  padding: 1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  padding: 1rem 2rem;
   max-width: 100vw;
 }
 
@@ -223,7 +222,7 @@ const socialLinks = [
 
 .nav-links {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
   margin: 0 2rem;
 }
 
@@ -232,18 +231,14 @@ const socialLinks = [
 }
 
 .nav-button {
-  background: none;
-  border: none;
-  padding: 1rem 0.5rem;
   color: #333;
   font-size: 0.9rem;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
+  user-select: none;
 }
 
 .nav-button-line {
-  position: absolute;
+  position: relative;
   bottom: 0;
   left: 50%;
   width: 0;
@@ -374,28 +369,18 @@ const socialLinks = [
 
 .adhesion-button {
   position: relative;
-  background: none;
   border: none;
   padding: 0.8rem 1.5rem;
+  background: #4caf50;
   color: white;
   font-weight: 500;
   overflow: hidden;
   z-index: 1;
   border-radius: 32px;
-}
-
-.adhesion-button-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #4caf50;
-  z-index: -1;
   transition: transform 0.3s ease;
 }
 
-.adhesion-button:hover .adhesion-button-background {
+.adhesion-button:hover {
   transform: scale(1.1);
 }
 

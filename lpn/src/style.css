@@ -21,6 +21,75 @@
   --background1: #C8DAF4;
   --color1: #335C82;
 
+  /* Color variables */
+  --red-lt-1: #FFFCFD;
+  --red-lt-2: #FFCBD9;
+  --red-lt-3: #FF9DB9;
+  --red-lt-4: #FF6699;
+  --red-lt-5: #DA5983;
+  --red-dk-1: #B34B6D;
+  --red-dk-2: #8E3E57;
+  --red-dk-3: #6B3142;
+  --red-dk-4: #4B2530;
+  --red-dk-5: #2E191E;
+  --gre-lt-1: #F7FFF9;
+  --gre-lt-2: #07F88D;
+  --gre-lt-3: #1BD47A;
+  --gre-lt-4: #21B267;
+  --gre-lt-5: #239959;
+  --gre-dk-1: #237E4B;
+  --gre-dk-2: #20653D;
+  --gre-dk-3: #1D4C2F;
+  --gre-dk-4: #183723;
+  --gre-dk-5: #132218;
+  --cya-lt-1: #F7FEFE;
+  --cya-lt-2: #00F1F2;
+  --cya-lt-3: #1ACECF;
+  --cya-lt-4: #22ACAD;
+  --cya-lt-5: #249494;
+  --cya-dk-1: #247A7B;
+  --cya-dk-2: #216262;
+  --cya-dk-3: #1E4A4A;
+  --cya-dk-4: #193535;
+  --cya-dk-5: #132121;
+  --br1-lt-1: #FDFDFD;
+  --br1-lt-2: #D5D9DE;
+  --br1-lt-3: #B3BBC3;
+  --br1-lt-4: #929DA9;
+  --br1-lt-5: #7A8796;
+  --br1-dk-1: #607182;
+  --br1-dk-2: #475B6E;
+  --br1-dk-3: #2E465B;
+  --br1-dk-4: #14334A;
+  --br1-dk-5: #072133;
+  --br2-lt-1: #FDFDFE;
+  --br2-lt-2: #D3D9E3;
+  --br2-lt-3: #AEBBCC;
+  --br2-lt-4: #8B9DB6;
+  --br2-lt-5: #7088A5;
+  --br2-dk-1: #527193;
+  --br2-dk-2: #335C82;
+  --br2-dk-3: #004771;
+  --br2-dk-4: #10334F;
+  --br2-dk-5: #11202F;
+  --br3-lt-1: #FCFDFE;
+  --br3-lt-2: #C8DAF4;
+  --br3-lt-3: #97BDEA;
+  --br3-lt-4: #5DA0E1;
+  --br3-lt-5: #038CD9;
+  --br3-dk-1: #1874B2;
+  --br3-dk-2: #1D5C8D;
+  --br3-dk-3: #1D4669;
+  --br3-dk-4: #1A324A;
+  --br3-dk-5: #14202C;
+}
+
+.theme1 {
+  background-color: var(--br1-dk-5);
+}
+
+.theme2 {
+  
 }
 
 .background1 {
