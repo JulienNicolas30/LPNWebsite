@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted } from "vue";
 import sitemap from "../sitemap.json";
 import { useWindowScroll } from "@vueuse/core";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import {  
+import {
   faLinkedinIn,
   faInstagram,
   faXTwitter,
@@ -16,6 +16,7 @@ import {
   faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import Dropdown2 from "./dropdown2.vue";
 
 library.add(
   faFacebookF,
@@ -66,9 +67,15 @@ const handleMouseLeave = () => {
 
 const socialLinks = [
   { icon: ["fab", "x-twitter"], url: "https://x.com/parrainsdunum" },
-  { icon: ["fab", "linkedin-in"], url: "https://www.linkedin.com/company/parrainsdunum/" },
+  {
+    icon: ["fab", "linkedin-in"],
+    url: "https://www.linkedin.com/company/parrainsdunum/",
+  },
   { icon: ["fab", "instagram"], url: "https://www.instagram.com/team_irc/" },
-  { icon: ["fab", "facebook-f"], url: "https://www.facebook.com/profile.php?id=100066600245148" },
+  {
+    icon: ["fab", "facebook-f"],
+    url: "https://www.facebook.com/profile.php?id=100066600245148",
+  },
 ];
 
 onMounted(() => {
@@ -103,32 +110,12 @@ onUnmounted(() => {
           @mouseenter="handleMouseEnter(index)"
           @mouseleave="handleMouseLeave"
         >
-          <template v-if="item.children">
-            <div class="nav-button">
-              {{ item.title }}
-              <div
-                class="nav-button-line"
-                :class="{ active: activeMenu === index }"
-              ></div>
-            </div>
-            <div
-              class="mega-menu"
-              :class="{ active: activeMenu === index }"
-            >
-              <div class="mega-menu-content">
-                <div
-                  v-for="(subItem, subIndex) in item.children"
-                  :key="subIndex"
-                  class="mega-menu-item"
-                >
-                  <router-link :to="'/' + item.path + '/' + subItem.path">
-                    <h3>{{ subItem.title }}</h3>
-                    <p>{{ subItem.description }}</p>
-                  </router-link>
-                </div>
-              </div>
-            </div>
-          </template>
+          <Dropdown2
+            v-if="item.children"
+            :item="item"
+            :index="index"
+            :activeMenu="activeMenu"
+          />
           <router-link v-else :to="'/' + item.path" class="nav-button">
             {{ item.title }}
             <div
@@ -147,7 +134,7 @@ onUnmounted(() => {
             v-for="(social, index) in socialLinks"
             :key="index"
             :href="social.url"
-            class="social-icon" 
+            class="social-icon"
             target="_blank"
           >
             <font-awesome-icon :icon="social.icon" />
@@ -160,9 +147,7 @@ onUnmounted(() => {
         </button>
 
         <!-- Adhesion Button -->
-        <a href="#" class="adhesion-button">
-          Adhésion
-        </a>
+        <a href="#" class="adhesion-button"> Adhésion </a>
 
         <!-- Mobile Menu Toggle -->
         <button class="mobile-menu-toggle" @click="toggleMenu">
@@ -207,7 +192,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   width: auto;
-  }
+}
 
 .logo img {
   height: 100%;
@@ -226,88 +211,6 @@ onUnmounted(() => {
 
 .nav-item {
   position: relative;
-}
-
-.nav-button {
-  color: #333;
-  font-size: 0.9rem;
-  cursor: pointer;
-  user-select: none;
-}
-
-.nav-button-line {
-  position: relative;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: #4caf50;
-  transform: translateX(-50%);
-  transition: width 0.3s ease;
-}
-
-.nav-button-line.active {
-  width: 100%;
-}
-
-.mega-menu {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: white;
-  min-width: 600px;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-}
-
-.mega-menu.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-
-.mega-menu-content {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-}
-
-.mega-menu-item {
-  text-align: left;
-}
-
-.mega-menu-item h3 {
-  color: #333;
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  position: relative;
-  display: inline-block;
-}
-
-.mega-menu-item h3::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 30px;
-  height: 2px;
-  background: #4caf50;
-  transition: width 0.3s ease;
-}
-
-.mega-menu-item:hover h3::after {
-  width: 100%;
-}
-
-.mega-menu-item p {
-  color: #666;
-  font-size: 0.85rem;
-  line-height: 1.4;
 }
 
 .nav-right {
@@ -395,11 +298,6 @@ onUnmounted(() => {
 .dark {
   background: #14202c;
 }
-
-.dark .nav-button {
-  color: #fff;
-}
-
 .dark .mega-menu {
   background: #2a2a2a;
 }

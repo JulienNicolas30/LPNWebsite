@@ -21,6 +21,8 @@
   --background1: #C8DAF4;
   --color1: #335C82;
 
+  
+
   /* Color variables */
   --red-lt-1: #FFFCFD;
   --red-lt-2: #FFCBD9;
@@ -88,10 +90,6 @@
   background-color: var(--br1-dk-5);
 }
 
-.theme2 {
-  
-}
-
 .background1 {
   background-color: var(--background1);
 }
@@ -156,6 +154,32 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.nav-button {
+  color: #333;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav-button-line {
+  position: relative;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #4caf50;
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.nav-button-line.active {
+  width: 100%;
+}
+
+.dark .nav-button {
+  color: #fff;
 }
 
 .card {
