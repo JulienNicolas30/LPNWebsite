@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
 import sitemap from "../sitemap.json";
-import { useWindowScroll } from "@vueuse/core";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faLinkedinIn,
@@ -16,7 +15,8 @@ import {
   faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import Dropdown2 from "./dropdown2.vue";
+import DropdownMenu from "./DropdownMenu.vue";
+import { useWindowScroll } from "@vueuse/core";
 
 library.add(
   faFacebookF,
@@ -31,10 +31,22 @@ library.add(
 
 const isMenuOpen = ref(false);
 const isDarkMode = ref(false);
-const lastScrollY = ref(0);
 const isNavVisible = ref(true);
-const activeMenu = ref<number | null>(null);
+const lastScrollY = ref(0);
 const { y: scrollY } = useWindowScroll();
+
+const socialLinks = [
+  { icon: ["fab", "x-twitter"], url: "https://x.com/parrainsdunum" },
+  {
+    icon: ["fab", "linkedin-in"],
+    url: "https://www.linkedin.com/company/parrainsdunum/",
+  },
+  { icon: ["fab", "instagram"], url: "https://www.instagram.com/team_irc/" },
+  {
+    icon: ["fab", "facebook-f"],
+    url: "https://www.facebook.com/profile.php?id=100066600245148",
+  },
+];
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -56,27 +68,6 @@ const handleScroll = () => {
     currentScrollY < lastScrollY.value || currentScrollY < 50;
   lastScrollY.value = currentScrollY;
 };
-
-const handleMouseEnter = (index: number) => {
-  activeMenu.value = index;
-};
-
-const handleMouseLeave = () => {
-  activeMenu.value = null;
-};
-
-const socialLinks = [
-  { icon: ["fab", "x-twitter"], url: "https://x.com/parrainsdunum" },
-  {
-    icon: ["fab", "linkedin-in"],
-    url: "https://www.linkedin.com/company/parrainsdunum/",
-  },
-  { icon: ["fab", "instagram"], url: "https://www.instagram.com/team_irc/" },
-  {
-    icon: ["fab", "facebook-f"],
-    url: "https://www.facebook.com/profile.php?id=100066600245148",
-  },
-];
 
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
@@ -103,27 +94,26 @@ onUnmounted(() => {
 
       <!-- Desktop Menu -->
       <nav class="nav-links" :class="{ active: isMenuOpen }">
-        <div
-          v-for="(item, index) in sitemap.$r"
-          :key="index"
-          class="nav-item"
-          @mouseenter="handleMouseEnter(index)"
-          @mouseleave="handleMouseLeave"
-        >
-          <Dropdown2
-            v-if="item.children"
-            :item="item"
-            :index="index"
-            :activeMenu="activeMenu"
-          />
-          <router-link v-else :to="'/' + item.path" class="nav-button">
-            {{ item.title }}
-            <div
-              class="nav-button-line"
-              :class="{ active: activeMenu === index }"
-            ></div>
-          </router-link>
-        </div>
+        <DropdownMenu :routes="sitemap.$r">
+          <template #default="{ item, active }">
+            <router-link :to="'/' + item.path" class="nav-button">
+              {{ item.title }}
+              <div class="nav-button-line" :class="{ active }"></div>
+            </router-link>
+          </template>
+          <template #folder="{ item, active }">
+            <div class="nav-button">
+              {{ item.title }}
+              <div class="nav-button-line" :class="{ active }"></div>
+            </div>  
+          </template>
+          <template #subitem="{ item, subItem }">
+            <router-link :to="'/' + item.path + '/' + subItem.path">
+              <h3>{{ subItem.title }}</h3>
+              <p>{{ subItem.description }}</p>
+            </router-link>
+          </template>
+        </DropdownMenu>
       </nav>
 
       <!-- Right Section -->
@@ -192,6 +182,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   width: auto;
+  z-index: 1;
 }
 
 .logo img {
@@ -209,8 +200,78 @@ onUnmounted(() => {
   margin: 0 2rem;
 }
 
-.nav-item {
+.nav-button {
+  color: #333;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav-button-line {
   position: relative;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #4caf50;
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.nav-button-line.active {
+  width: 100%;
+}
+
+:deep(.overlay) {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  min-width: 600px;
+  left: 50%;
+  translate: -50%;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+:deep(.overlay.active) {
+  transform: translateY(0);
+}
+
+:deep(.subitem) {
+  text-align: left;
+}
+
+.subitem h3 {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1rem;
+}
+
+.subitem h3::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: #4caf50;
+  transition: width 0.3s ease;
+}
+
+.subitem:hover h3::after {
+  width: 100%;
+}
+
+.subitem p {
+  color: #666;
+  font-size: 0.85rem;
+  line-height: 1.4;
 }
 
 .nav-right {
@@ -292,6 +353,8 @@ onUnmounted(() => {
   padding: 0.5rem;
   cursor: pointer;
   font-size: 1.5rem;
+  z-index: 1;
+  color: var(--br1-dk-5);
 }
 
 /* Dark Mode */
@@ -320,11 +383,8 @@ onUnmounted(() => {
 
 /* Mobile Styles */
 @media (max-width: 1024px) {
-  .mega-menu {
+  :deep(.overlay) {
     min-width: 400px;
-  }
-
-  .mega-menu-content {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -360,7 +420,7 @@ onUnmounted(() => {
     width: 100%;
   }
 
-  .mega-menu {
+  :deep(.overlay) {
     position: static;
     min-width: 100%;
     transform: none;
@@ -369,9 +429,7 @@ onUnmounted(() => {
     margin-top: 1rem;
     opacity: 1;
     visibility: visible;
-  }
-
-  .mega-menu-content {
+    translate: 0px;
     grid-template-columns: 1fr;
     gap: 1rem;
   }
