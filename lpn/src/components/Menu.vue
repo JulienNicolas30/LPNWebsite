@@ -82,44 +82,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <nav
-    class="nav-container"
-    :class="[{ 'nav-hidden': !isNavVisible }]">
-    <div class="nav-content">
-      <a href="/" :class="{ active: isMenuOpen }">
-        <img src="/assets/logo-horizontal.svg" alt="logo" id="logo" />
-      </a>
-      <nav class="nav-links">
-        <div class="nav-item" v-for="page in sitemap.$r" :key="page.path">
-          <Dropdown
-            v-if="page.children"
-            :label="page.title"
-            :isOpen="openDropdown === page.path"
-            @toggle="toggleDropdown(page.path)"
-          >
-            <template #selector="{ toggle }">
-              <span
-                class="dropdown-label"
-                :class="{ active: openDropdown === page.path }"
-                @click="toggle"
-              >
-                {{ page.title }}
-                <font-awesome-icon
-                  :icon="['fas', 'chevron-down']"
-                  class="dropdown-icon"
-                  :class="{ rotate: openDropdown === page.path }"
-                />
-              </span>
-            </template>
-            <template #default>
-              <div id="submenu">
-                <div
-                  id="submenus"
-                  v-for="subpage in page.children"
-                  :key="subpage.path"
-                  @click="handleSubMenuClick"
-                >
-                  <router-link :to="'/' + page.path + '/' + subpage.path">
+                               <router-link :to="'/' + page.path + '/' + subpage.path">
                     {{ subpage.title }}
                   </router-link>
                 </div>
@@ -171,41 +134,6 @@ onUnmounted(() => {
 .nav-container {
   width: 100%;
   background-color: #004771;
-}
-
-.nav-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0 20px;
-  border-bottom: 2px solid #d3d9e3;
-}
-
-#logo {
-  height: 96px;
-  width: auto;
-  vertical-align: middle;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  flex-grow: 1;
-}
-
-.nav-item a,
-.nav-item button {
-  display: block;
-  padding: 16px;
-  user-select: none;
-  font-size: 18px;
-  font-weight: bold;
-  color: #fdfdfe;
 }
 
 .nav-item a:hover,
@@ -300,19 +228,12 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px; /* Ajuste selon tes besoins */
+  width: 40px;
   height: 40px;
   border-radius: 50%;
   border: none;
   font-size: 32px;
   cursor: pointer;
-}
-
-.theme-toggle {
-  background: none;
-  padding: 0.5rem;
-  cursor: pointer;
-  transition: color 0.3s ease;
 }
 
 .theme-toggle:hover {
