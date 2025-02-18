@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted } from "vue";
 import sitemap from "../sitemap.json";
 import { useWindowScroll } from "@vueuse/core";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import {
+import {  
   faLinkedinIn,
   faInstagram,
   faXTwitter,
@@ -35,13 +35,6 @@ const isNavVisible = ref(true);
 const activeMenu = ref<number | null>(null);
 const { y: scrollY } = useWindowScroll();
 
-const handleScroll = () => {
-  const currentScrollY = scrollY.value;
-  isNavVisible.value =
-    currentScrollY < lastScrollY.value || currentScrollY < 50;
-  lastScrollY.value = currentScrollY;
-};
-
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
   if (isMenuOpen.value) {
@@ -56,7 +49,12 @@ const toggleDarkMode = () => {
   document.documentElement.classList.toggle("dark");
 };
 
-
+const handleScroll = () => {
+  const currentScrollY = scrollY.value;
+  isNavVisible.value =
+    currentScrollY < lastScrollY.value || currentScrollY < 50;
+  lastScrollY.value = currentScrollY;
+};
 
 const handleMouseEnter = (index: number) => {
   activeMenu.value = index;
@@ -149,7 +147,7 @@ onUnmounted(() => {
             v-for="(social, index) in socialLinks"
             :key="index"
             :href="social.url"
-            class="social-icon"
+            class="social-icon" 
             target="_blank"
           >
             <font-awesome-icon :icon="social.icon" />
@@ -209,7 +207,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   width: auto;
-}
+  }
 
 .logo img {
   height: 100%;

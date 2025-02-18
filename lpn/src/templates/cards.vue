@@ -26,7 +26,7 @@ const getImageUrl = computed(() => {
         :class="{ 'blue-card': card.isBlue }"
       >
         <template v-if="card.isBlue">
-          <h2 v-if="card.title" class="card-title">{{ card.title }}</h2>
+          <h3 v-if="card.title" class="card-title">{{ card.title }}</h3>
           <p class="card-content">{{ card.content }}</p>
         </template>
         <template v-else>
