@@ -105,7 +105,7 @@ onUnmounted(() => {
             <div class="nav-button">
               {{ item.title }}
               <div class="nav-button-line" :class="{ active }"></div>
-            </div>  
+            </div>
           </template>
           <template #subitem="{ item, subItem }">
             <router-link :to="'/' + item.path + '/' + subItem.path">
@@ -154,7 +154,6 @@ onUnmounted(() => {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1;
   transition: transform 0.3s ease;
@@ -202,7 +201,6 @@ onUnmounted(() => {
 }
 
 .nav-button {
-  color: #333;
   font-size: 0.9rem;
   cursor: pointer;
   user-select: none;
@@ -214,7 +212,6 @@ onUnmounted(() => {
   left: 50%;
   width: 0;
   height: 2px;
-  background: #4caf50;
   transform: translateX(-50%);
   transition: width 0.3s ease;
 }
@@ -231,7 +228,6 @@ onUnmounted(() => {
   left: 50%;
   translate: -50%;
   padding: 2rem;
-  background: white;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   transform: translateY(20px);
@@ -250,7 +246,6 @@ onUnmounted(() => {
   display: inline-block;
   position: relative;
   margin-bottom: 0.5rem;
-  color: #333;
   font-size: 1rem;
 }
 
@@ -261,7 +256,6 @@ onUnmounted(() => {
   left: 0;
   width: 30px;
   height: 2px;
-  background: #4caf50;
   transition: width 0.3s ease;
 }
 
@@ -270,7 +264,6 @@ onUnmounted(() => {
 }
 
 .subitem p {
-  color: #666;
   font-size: 0.85rem;
   line-height: 1.4;
 }
@@ -287,7 +280,6 @@ onUnmounted(() => {
 }
 
 .social-icon {
-  color: #666;
   transition: all 0.3s ease;
   position: relative;
   width: 30px;
@@ -303,7 +295,6 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: #f5f5f5;
   transform: scale(0);
   transition: transform 0.3s ease;
 }
@@ -317,16 +308,12 @@ onUnmounted(() => {
 }
 
 .theme-toggle {
-  background: none;
   border: none;
   padding: 0.5rem;
   cursor: pointer;
-  color: #666;
   transition: color 0.3s ease;
 }
-
 .theme-toggle:hover {
-  color: #333;
   transform: rotate(180deg);
 }
 
@@ -334,8 +321,6 @@ onUnmounted(() => {
   position: relative;
   border: none;
   padding: 0.8rem 1.5rem;
-  background: #4caf50;
-  color: white;
   font-weight: 500;
   overflow: hidden;
   z-index: 1;

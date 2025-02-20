@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 import sitemap from "./../sitemap.json";
-import Dropdown from "./dropdown.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -10,7 +9,7 @@ import {
   faXTwitter,
   faTwitch,
 } from "@fortawesome/free-brands-svg-icons";
-import { 
+import {
   faBars,
   faTimes,
   faSun,
@@ -61,15 +60,10 @@ const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value;
   document.documentElement.classList.toggle("dark");
 };
-
-const handleSubMenuClick = (event: Event) => {
-  event.stopPropagation();
-  openDropdown.value = null;
-};
-
 const handleScroll = () => {
   const currentScrollY = scrollY.value;
-  if (currentScrollY < lastScrollY.value || currentScrollY < 50) toggleDropdown();
+  if (currentScrollY < lastScrollY.value || currentScrollY < 50)
+    toggleDropdown();
   lastScrollY.value = currentScrollY;
 };
 
@@ -83,9 +77,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <nav
-    class="nav-container"
-    :class="[{ 'nav-hidden': !isNavVisible }]">
+  <nav class="nav-container" :class="[{ 'nav-hidden': !isNavVisible }]">
     <div class="nav-content">
       <a href="/" :class="{ active: isMenuOpen }">
         <img src="/assets/logo-horizontal.svg" alt="logo" id="logo" />
@@ -100,23 +92,25 @@ onUnmounted(() => {
           <template #folder="{ item, active }">
             <div class="nav-button" :class="{ active }">
               {{ item.title }}
-              <font-awesome-icon :icon="['fas', 'chevron-down']"
+              <font-awesome-icon
+                :icon="['fas', 'chevron-down']"
                 class="nav-icon"
                 :class="{ rotate: active }"
               />
             </div>
           </template>
           <template #subitem="{ item, subItem }">
-            <router-link :to="'/' + item.path + '/' + subItem.path" class="nav-button">
+            <router-link
+              :to="'/' + item.path + '/' + subItem.path"
+              class="nav-button"
+            >
               {{ subItem.title }}
             </router-link>
           </template>
         </DropdownMenu>
       </nav>
       <div class="nav-right">
-        <a href="#" class="adhesion-button">
-          Adhésion
-        </a>
+        <a href="#" class="adhesion-button"> Adhésion </a>
         <div class="social-icons">
           <a
             href="https://www.linkedin.com/company/parrainsdunum/"
@@ -152,7 +146,6 @@ onUnmounted(() => {
 
 .nav-container {
   width: 100%;
-  background-color: #004771;
   z-index: 1;
 }
 
@@ -166,7 +159,7 @@ onUnmounted(() => {
 }
 
 #logo {
-  height: 96px;
+  height: 84px;
   width: auto;
   vertical-align: middle;
 }
@@ -176,7 +169,7 @@ onUnmounted(() => {
   flex-grow: 1;
   margin: 0;
   padding: 0;
-  height: 96px;
+  height: 84px;
 }
 
 .nav-button {
@@ -186,16 +179,8 @@ onUnmounted(() => {
   padding: 16px;
   cursor: pointer;
   user-select: none;
-  background-color: #004771;
-  color: #fdfdfe;
   font-size: 18px;
   transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.nav-button:hover,
-.nav-button.active {
-  background-color: #038cd9;
-  color: white;
 }
 
 .nav-icon {
@@ -212,7 +197,6 @@ onUnmounted(() => {
   min-width: 100%;
   margin: 0;
   padding: 0;
-  background-color: #004771;
   border: 1px solid #fdfdfe;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -224,15 +208,11 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #fdfdfe;
 }
 
 .adhesion-button {
   position: relative;
-  border: 1px solid #fdfdfe;
   padding: 0.8rem 1.5rem;
-  background: #4caf50;
-  color: white;
   font-weight: 500;
   overflow: hidden;
   z-index: 1;
@@ -247,7 +227,6 @@ onUnmounted(() => {
 .social-icons {
   display: flex;
   gap: 12px;
-  color: #fdfdfe;
 }
 
 .social-icons a,
@@ -255,7 +234,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px; /* Ajuste selon tes besoins */
+  width: 40px;
   height: 40px;
   border-radius: 50%;
   border: none;
@@ -269,12 +248,6 @@ onUnmounted(() => {
   cursor: pointer;
   transition: color 0.3s ease;
 }
-
-.theme-toggle:hover {
-  color: #333;
-  transform: rotate(180deg);
-}
-
 .mobile-menu-toggle {
   display: none;
   background: none;
