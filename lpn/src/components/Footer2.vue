@@ -97,7 +97,6 @@ onUnmounted(() => {
 
 <style scoped>
 .footer {
-  background: white;
   padding: 4rem 0;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
   margin-top: 4rem;
@@ -126,7 +125,6 @@ onUnmounted(() => {
 }
 
 .footer-column h3 {
-  color: #00283f;
   font-size: 1.25rem;
   margin-bottom: 1.5rem;
   position: relative;
@@ -159,13 +157,8 @@ onUnmounted(() => {
 }
 
 .contact-info a {
-  color: #03915e;
   text-decoration: none;
   transition: color 0.3s ease;
-}
-
-.contact-info a:hover {
-  color: #00ff91;
 }
 
 address {
@@ -184,7 +177,6 @@ address {
 }
 
 .missions-list a {
-  color: #004771;
   text-decoration: none;
   transition: all 0.3s ease;
   position: relative;
@@ -201,7 +193,6 @@ address {
 }
 
 .missions-list a:hover {
-  color: #00ff91;
   padding-left: 2rem;
 }
 
@@ -215,13 +206,9 @@ address {
   margin: 0 5px;
   object-fit: contain;
 }
-
-:root .contact-info {
-  color: #00283f;
-}
 /* Dark Mode */
 :root[class~="dark"] .footer {
-  background: #14202C;
+  background: #14202c;
 }
 
 :root[class~="dark"] .footer-column h3 {
@@ -233,7 +220,7 @@ address {
 }
 
 :root[class~="dark"] .missions-list a:hover {
-  color: #1BD47A;
+  color: #1bd47a;
 }
 
 :root[class~="dark"] .contact-info {

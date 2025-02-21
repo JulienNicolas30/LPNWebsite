@@ -157,7 +157,6 @@ onUnmounted(() => {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1;
   transition: transform 0.3s ease;
-  box-sizing: border-box;
   font-family: "NeuePlak-Bold";
   font-weight: bold;
   font-style: normal;

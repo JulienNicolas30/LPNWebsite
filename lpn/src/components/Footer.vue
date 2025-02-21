@@ -63,19 +63,16 @@
 }
 
 .footer {
-  background-color: #004471;
   width: 100%;
-  padding :0;
-  color: #fdfdfe;
-  font-family: "NeuePlak-Bold";
-  border-top: #fdfdfe 2px solid;
+  padding: 0;
+  font-family: "NeuePlak-Bold";  
 }
 
 .footer-content {
   display: flex;
   justify-content: space-between;
   padding: 1.5rem;
-  margin:0;
+  margin: 0;
 }
 
 .footer-section {

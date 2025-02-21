@@ -17,10 +17,7 @@
     sans-serif;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #00283f;
   text-rendering: optimizeLegibility;
-  --background1: #c8daf4;
-  --color1: #335c82;
 
   /* Color variables */
   --red-lt-1: #fffcfd;
@@ -104,22 +101,28 @@
   color: var(--color1);
 }
 
-.color1 .card-title {
-  color: var(--color1);
-}
-
 .theme1 {
   --nav-color: var(--br2-lt-1);
-  --nav-color2: white;
-  --nav-bg: var(--br2-dk-3);  
-  --nav-bg2: #038cd9;
+  --nav-color2: var(--gre-lt-3);
+  --nav-bg: var(--br2-dk-3);
+  --nav-bg2: var(--br3-lt-5);
+  --card-color: var(--br2-lt-1);
+  --card-color2: var(--cya-dk-5);
+  --card-bg: var(--br2-lt-1);
+  --card-bg2: var(--br3-lt-5);
+  --page-bg: var(--br1-dk-5);
 }
 
 .theme2 {
   --nav-color: var(--br2-dk-3);
-  --nav-color2: white;
+  --nav-color2: var(--gre-lt-5);
   --nav-bg: var(--br2-lt-1);
-  --nav-bg2: #038cd9;
+  --nav-bg2: var(--br3-lt-4);
+  --card-color: var(--br2-lt-1);
+  --card-color2: var(--cya-dk-5);
+  --card-bg: var(--br2-lt-1);
+  --card-bg2: var(--br3-lt-5);
+  --page-bg: var(--br2-lt-1 );
 }
 
 .theme3 {
@@ -128,8 +131,10 @@
   --nav-bg: green;
   --nav-bg2: #038cd9;
 }
+
 .nav-content {
   background-color: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-color);
 }
 .nav-button {
   color: var(--nav-color);
@@ -138,7 +143,11 @@
 .nav-button:hover,
 .nav-button.active {
   background-color: var(--nav-bg2);
-  color: var(--nav-color2);
+  color: var(--nav-color);
+}
+
+.nav-button-line.active {
+  background-color: var(--nav-color2);
 }
 
 .social-icons,
@@ -180,6 +189,7 @@
 
 .overlay {
   background: var(--nav-bg);
+  border: 1px solid var(--nav-color);
 }
 
 body {
@@ -193,10 +203,9 @@ body {
 }
 
 a {
-  font-weight: 500;  
+  font-weight: 500;
   text-decoration: inherit;
   color: var(--nav-color);
-  
 }
 
 a:hover {
@@ -234,8 +243,30 @@ button:focus-visible {
   color: #fff;
 }
 
+.page {
+  background-color: var(--page-bg);
+  color: var(--nav-color);
+}
+
 .card {
-  padding: 2em;
+  background-color: var(--card-bg);
+  border: 2px var(--card-bg) solid;
+}
+
+.blue-card {
+  background-color: var(--card-bg2);
+}
+
+.card-title {
+  color: var(--card-color);
+}
+
+.card-content {
+  color: var(--card-color2);
+}
+
+.mission-title {
+  color: var(--nav-color);
 }
 
 #app {
@@ -261,12 +292,28 @@ button:focus-visible {
   padding: 0 !important;
 }
 
-footer {
-  text-align: center;
-  width: 100%;
-  padding: rem 0;
-  background-color: #242424;
-  margin-top: auto;
+.footer-content {
+  color: var(--nav-color);
+  background-color: var(--nav-bg);
+  border-top: 1px solid var(--nav-color);
+}
+
+.footer-column h3 {
+  color: var(--nav-color);
+  background-color: var(--nav-bg);
+}
+.contact-info p {
+  color: var(--nav-color);
+}
+
+.contact-info a {
+  color: var(--nav-color2);
+}
+.missions-list a {
+  color: var(--nav-color);
+}
+.contact-info {
+  color: var(--nav-color);
 }
 
 @media (prefers-color-scheme: light) {

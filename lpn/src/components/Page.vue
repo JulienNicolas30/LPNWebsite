@@ -50,20 +50,17 @@ onMounted(async () => {
   font-style: normal;
 }
 
-.page {
-  
+.page {  
   font-family: "NeuePlak-Light";
   width: 100%;
   flex-grow: 1;
 }
 
 #title {
-  padding: 0;
-  /* color: #fdfdfe; */
+  padding: 0;  
   position: relative;
   display: inline-block;
-  font-size: 1.5rem;
-  /* text-decoration: underline; */
+  font-size: 1.5rem;  
 }
 
 #title::after {

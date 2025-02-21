@@ -56,7 +56,6 @@ const getImageUrl = computed(() => {
 
 .mission-title {
   font-family: "NeuePlak-Bold", sans-serif;
-  color: #fdfdfe;
   text-align: center;
   font-size: 3rem;
   margin-bottom: 2rem;
@@ -75,9 +74,7 @@ const getImageUrl = computed(() => {
   border-radius: 1rem;
   overflow: hidden;
   height: 364px;
-  background-color: #fdfdfe;
-  padding: 6px;
-  border: 2px #fdfdfe solid;
+  padding: 0.5rem;
 }
 
 .card-image {
@@ -88,7 +85,6 @@ const getImageUrl = computed(() => {
 }
 
 .blue-card {
-  background-color: #038cd9;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -99,13 +95,11 @@ const getImageUrl = computed(() => {
 
 .card-title {
   font-family: "NeuePlak-Bold", sans-serif;
-  color: white;
   margin-bottom: 0.5rem;
   text-decoration: underline;
 }
 
 .card-content {
-  color: #132121;
   font-size: 1.4rem;
   line-height: 1.5;
 }

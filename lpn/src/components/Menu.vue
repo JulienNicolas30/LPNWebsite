@@ -155,8 +155,7 @@ onUnmounted(() => {
   justify-content: space-between;
   width: 100%;
   padding: 0 20px;
-  border-bottom: 2px solid #d3d9e3;
-}
+  }
 
 #logo {
   height: 84px;
@@ -166,10 +165,12 @@ onUnmounted(() => {
 
 .nav-links {
   display: flex;
+  align-items: center;
+  justify-content: space-evenly;  
   flex-grow: 1;
   margin: 0;
   padding: 0;
-  height: 84px;
+  height: 80px;
 }
 
 .nav-button {
@@ -179,7 +180,7 @@ onUnmounted(() => {
   padding: 16px;
   cursor: pointer;
   user-select: none;
-  font-size: 18px;
+  font-size: 16px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -196,8 +197,7 @@ onUnmounted(() => {
   width: max-content;
   min-width: 100%;
   margin: 0;
-  padding: 0;
-  border: 1px solid #fdfdfe;
+  padding: 0;  
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 2;

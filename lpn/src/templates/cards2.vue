@@ -141,8 +141,7 @@ document.getElementsByTagName("body")[0].classList.add("color1");
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  color: #1a1a1a;
-}
+  }
 
 :root.dark .card-title {
   color: #fdfdfe;
@@ -150,8 +149,7 @@ document.getElementsByTagName("body")[0].classList.add("color1");
 
 .card-content {
   font-size: 1.4rem;
-  line-height: 1.6;
-  color: #2c3e50;
+  line-height: 1.6;  
 }
 
 :root.dark .card-content {
