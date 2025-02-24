@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue";
+import { ref } from "vue";
 import sitemap from "./../sitemap.json";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -10,15 +10,11 @@ import {
   faMoon,
   faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { useWindowScroll } from "@vueuse/core";
 import DropdownMenu from "./DropdownMenu.vue";
 
 library.add(faBars, faTimes, faChevronDown, faSun, faMoon);
 
 const isMenuOpen = ref(false);
-const lastScrollY = ref(0);
-const isNavVisible = ref(true);
-const { y: scrollY } = useWindowScroll();
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -29,39 +25,16 @@ const toggleMenu = () => {
   }
 };
 
-const openDropdown = ref<string | null>(null);
-
-const toggleDropdown = (key: string | null = null) => {
-  if (key === null || openDropdown.value === key) {
-    openDropdown.value = null;
-  } else {
-    openDropdown.value = key;
-  }
-};
 const isDarkMode = ref(false);
 
 const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value;
   document.documentElement.classList.toggle("dark");
 };
-const handleScroll = () => {
-  const currentScrollY = scrollY.value;
-  if (currentScrollY < lastScrollY.value || currentScrollY < 50)
-    toggleDropdown();
-  lastScrollY.value = currentScrollY;
-};
-
-onMounted(() => {
-  window.addEventListener("scroll", handleScroll);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("scroll", handleScroll);
-});
 </script>
 
 <template>
-  <nav class="nav-container" :class="[{ 'nav-hidden': !isNavVisible }]">
+  <nav class="nav-container">
     <div class="nav-content">
       <a href="/" :class="{ active: isMenuOpen }">
         <img src="/assets/logo-horizontal.svg" alt="logo" id="logo" />
@@ -112,8 +85,12 @@ onUnmounted(() => {
 }
 
 .nav-container {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  z-index: 1;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 .nav-content {

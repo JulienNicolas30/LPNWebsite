@@ -50,7 +50,7 @@ const getImageUrl = computed(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 1rem;
   width: 100%;
 }
 

@@ -1,4 +1,20 @@
 {
-  "template": "Base",
-  "content": "<p>Test Content</p>"
+  "template": "cards3",
+  "content": [
+    {
+      "image": "https://pbs.twimg.com/media/GdfZuiAWIAAuHVI?format=jpg&name=small",
+      "title": "Ateliers Parents/Enfants",
+      "content": "Education à l’image, Sensibilisation aux influences des réseaux sociaux et Fracture numérique sont des thématiques que nous abordons avec les jeunes, leurs parents où encore leurs enseignants."
+    },
+    {
+      "image": "https://pbs.twimg.com/media/GdjXemPWAAAbE0e?format=jpg&name=small",
+      "title": "Rigel",
+      "content": " Centre de loisirs numériques. Imaginez un Centre de Loisirs, où les Activités et les Ateliers se font en ligne.Autonomie, Esprit d’Equipe, Sens des responsabilités… Tout y est !"
+    },
+    {
+      "image": "https://pbs.twimg.com/media/GTo7PVwXsAAQpCn?format=jpg&name=small",
+      "title": "Rigel",
+      "content": " Centre de loisirs numériques. Imaginez un Centre de Loisirs, où les Activités et les Ateliers se font en ligne.Autonomie, Esprit d’Equipe, Sens des responsabilités… Tout y est !"
+    }
+  ]
 }

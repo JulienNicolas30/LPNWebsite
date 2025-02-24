@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref } from "vue";
 import sitemap from "../sitemap.json";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -10,15 +10,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import DropdownMenu from "./DropdownMenu.vue";
-import { useWindowScroll } from "@vueuse/core";
 
 library.add(faBars, faTimes, faSun, faMoon);
 
 const isMenuOpen = ref(false);
 const isDarkMode = ref(false);
-const isNavVisible = ref(true);
-const lastScrollY = ref(0);
-const { y: scrollY } = useWindowScroll();
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -33,31 +29,10 @@ const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value;
   document.documentElement.classList.toggle("dark");
 };
-
-const handleScroll = () => {
-  const currentScrollY = scrollY.value;
-  isNavVisible.value =
-    currentScrollY < lastScrollY.value || currentScrollY < 50;
-  lastScrollY.value = currentScrollY;
-};
-
-onMounted(() => {
-  window.addEventListener("scroll", handleScroll);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("scroll", handleScroll);
-});
 </script>
 
 <template>
-  <nav
-    :class="[
-      'nav-container',
-      { 'nav-hidden': !isNavVisible },
-      { dark: isDarkMode },
-    ]"
-  >
+  <nav :class="['nav-container', { dark: isDarkMode }]">
     <div class="nav-content">
       <!-- Logo -->
       <a href="/" class="logo">
@@ -107,21 +82,19 @@ onUnmounted(() => {
 
 <style scoped>
 .nav-container {
+  position: fixed;
   max-width: 100vw !important;
   top: 0;
   left: 0;
   width: 100%;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  z-index: 1000;
   transition: transform 0.3s ease;
   font-family: "NeuePlak-Bold";
   font-weight: bold;
   font-style: normal;
 }
 
-.nav-hidden {
-  transform: translateY(-100%);
-}
 
 .nav-content {
   display: flex;

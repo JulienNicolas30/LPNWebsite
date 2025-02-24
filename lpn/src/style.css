@@ -164,7 +164,7 @@
 .adhesion-button {
   background-color: var(--gre-lt-4);
   color: var(--br2-lt-1);
-  border: 1px solid var(--br2-lt-1);
+  border: 2px solid var(--nav-color);
 }
 
 .nav-button {
@@ -200,6 +200,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   margin: 0;
+  padding-top: 60px;
 }
 
 a {
@@ -280,6 +281,7 @@ button:focus-visible {
   min-height: 100vh;
   text-align: center;
   overflow-y: auto;
+  
 }
 
 .app-container,

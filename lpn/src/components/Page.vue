@@ -26,9 +26,9 @@ onMounted(async () => {
   const pageLoaded = await import(`../views/${root}/${page}.json`);
   template.value = pageLoaded.template;
   content.value = pageLoaded.content;
-  console.log('Template:', template.value);
-  console.log('Content:', content.value);
-  console.log('Available templates:', Object.keys(templates));
+  console.log("Template:", template.value);
+  console.log("Content:", content.value);
+  console.log("Available templates:", Object.keys(templates));
 });
 </script>
 
@@ -50,7 +50,7 @@ onMounted(async () => {
   font-style: normal;
 }
 
-.page {  
+.page {
   font-family: "NeuePlak-Light";
   width: 100%;
   flex-grow: 1;
@@ -58,17 +58,17 @@ onMounted(async () => {
 }
 
 #title {
-  padding: 0;  
+  padding: 2rem;
   position: relative;
   display: inline-block;
-  font-size: 1.5rem;  
+  font-size: 1.5rem;
 }
 
 #title::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: 3rem;
+  bottom: 4.5rem;
   width: 100%;
   height: 3px;
   background-color: #038cd9;
@@ -76,8 +76,8 @@ onMounted(async () => {
     0 0 20px #038cd9;
 }
 
-:root.dark .page{
-  background-color: #607182;  
+:root.dark .page {
+  background-color: #607182;
 }
 
 :root.dark #title {
