@@ -72,9 +72,9 @@ document.getElementsByTagName("body")[0].classList.add("color1");
           class="text-container"
           :class="{ 'text-blue': section.text.isImg }"
         >
-          <h3 v-if="section.text.title" class="card-title">
+          <h2 v-if="section.text.title" class="card-title">
             {{ section.text.title }}
-          </h3>
+          </h2>
           <p v-if="section.text.content" class="card-content">
             {{ section.text.content }}
           </p>

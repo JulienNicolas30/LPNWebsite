@@ -4,12 +4,6 @@ import sitemap from "./../sitemap.json";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-  faInstagram,
-  faLinkedin,
-  faXTwitter,
-  faTwitch,
-} from "@fortawesome/free-brands-svg-icons";
-import {
   faBars,
   faTimes,
   faSun,
@@ -19,17 +13,7 @@ import {
 import { useWindowScroll } from "@vueuse/core";
 import DropdownMenu from "./DropdownMenu.vue";
 
-library.add(
-  faTwitch,
-  faXTwitter,
-  faInstagram,
-  faLinkedin,
-  faBars,
-  faTimes,
-  faChevronDown,
-  faSun,
-  faMoon
-);
+library.add(faBars, faTimes, faChevronDown, faSun, faMoon);
 
 const isMenuOpen = ref(false);
 const lastScrollY = ref(0);
@@ -110,30 +94,13 @@ onUnmounted(() => {
         </DropdownMenu>
       </nav>
       <div class="nav-right">
-        <a href="#" class="adhesion-button"> Adhésion </a>
-        <div class="social-icons">
-          <a
-            href="https://www.linkedin.com/company/parrainsdunum/"
-            target="_blank"
-          >
-            <font-awesome-icon :icon="['fab', 'linkedin']" />
-          </a>
-          <a href="https://x.com/parrainsdunum" target="_blank">
-            <font-awesome-icon :icon="['fab', 'x-twitter']" />
-          </a>
-          <a href="https://www.instagram.com/team_irc" target="_blank">
-            <font-awesome-icon :icon="['fab', 'instagram']" />
-          </a>
-          <a href="https://www.twitch.tv/team_irc" target="_blank">
-            <font-awesome-icon :icon="['fab', 'twitch']" />
-          </a>
-        </div>
         <button @click="toggleDarkMode" class="theme-toggle">
           <font-awesome-icon :icon="isDarkMode ? 'sun' : 'moon'" />
         </button>
         <button class="mobile-menu-toggle" @click="toggleMenu">
           <font-awesome-icon :icon="isMenuOpen ? 'times' : 'bars'" />
         </button>
+        <a href="#" class="adhesion-button"> Adhésion </a>
       </div>
     </div>
   </nav>
@@ -155,7 +122,7 @@ onUnmounted(() => {
   justify-content: space-between;
   width: 100%;
   padding: 0 20px;
-  }
+}
 
 #logo {
   height: 84px;
@@ -166,7 +133,7 @@ onUnmounted(() => {
 .nav-links {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;  
+  justify-content: space-evenly;
   flex-grow: 1;
   margin: 0;
   padding: 0;
@@ -197,7 +164,7 @@ onUnmounted(() => {
   width: max-content;
   min-width: 100%;
   margin: 0;
-  padding: 0;  
+  padding: 0;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 2;
@@ -223,13 +190,6 @@ onUnmounted(() => {
 .adhesion-button:hover {
   transform: scale(1.1);
 }
-
-.social-icons {
-  display: flex;
-  gap: 12px;
-}
-
-.social-icons a,
 .theme-toggle {
   display: flex;
   align-items: center;
@@ -266,9 +226,6 @@ onUnmounted(() => {
     flex-wrap: wrap;
   }
 
-  .social-icons {
-    margin-top: 10px;
-  }
   :deep(.overlay) {
     min-width: 400px;
     grid-template-columns: repeat(2, 1fr);
@@ -311,10 +268,6 @@ onUnmounted(() => {
 
   .mobile-menu-toggle {
     display: block;
-  }
-
-  .social-icons {
-    display: none;
   }
 
   :deep(.overlay) {

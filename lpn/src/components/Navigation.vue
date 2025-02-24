@@ -89,7 +89,7 @@ onUnmounted(() => {
       </nav>
 
       <!-- Right Section -->
-      <div class="nav-right">        
+      <div class="nav-right">
         <!-- Dark Mode Toggle -->
         <button @click="toggleDarkMode" class="theme-toggle">
           <font-awesome-icon :icon="isDarkMode ? 'sun' : 'moon'" />
@@ -151,6 +151,7 @@ onUnmounted(() => {
 
 .nav-links {
   display: flex;
+  justify-content: space-between;
   gap: 2rem;
   height: 48px;
   margin: 0 2rem;
@@ -242,7 +243,6 @@ onUnmounted(() => {
 
 .adhesion-button {
   position: relative;
-  border: none;
   padding: 0.8rem 1.5rem;
   font-weight: 500;
   overflow: hidden;
