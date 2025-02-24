@@ -89,13 +89,13 @@ onUnmounted(() => {
       </nav>
 
       <!-- Right Section -->
-      <div class="nav-right">
-        <!-- Adhesion Button -->
-        <a href="#" class="adhesion-button"> Adhésion </a>
+      <div class="nav-right">        
         <!-- Dark Mode Toggle -->
         <button @click="toggleDarkMode" class="theme-toggle">
           <font-awesome-icon :icon="isDarkMode ? 'sun' : 'moon'" />
         </button>
+        <!-- Adhesion Button -->
+        <a href="#" class="adhesion-button"> Adhésion </a>
         <!-- Mobile Menu Toggle -->
         <button class="mobile-menu-toggle" @click="toggleMenu">
           <font-awesome-icon :icon="isMenuOpen ? 'times' : 'bars'" />

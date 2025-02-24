@@ -54,6 +54,7 @@ onMounted(async () => {
   font-family: "NeuePlak-Light";
   width: 100%;
   flex-grow: 1;
+  font-weight: 600;
 }
 
 #title {
