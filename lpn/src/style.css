@@ -122,7 +122,7 @@
   --card-color2: var(--cya-dk-5);
   --card-bg: var(--br2-lt-1);
   --card-bg2: var(--br3-lt-5);
-  --page-bg: var(--br2-lt-1 );
+  --page-bg: var(--br2-lt-1);
 }
 
 .theme3 {
@@ -314,6 +314,11 @@ button:focus-visible {
 }
 .contact-info {
   color: var(--nav-color);
+}
+
+.social-link {
+  color: var(--nav-color);
+  background-color: var(--nav-bg);
 }
 
 @media (prefers-color-scheme: light) {

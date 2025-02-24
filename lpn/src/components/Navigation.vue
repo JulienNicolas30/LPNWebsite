@@ -3,12 +3,6 @@ import { ref, onMounted, onUnmounted } from "vue";
 import sitemap from "../sitemap.json";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-  faLinkedinIn,
-  faInstagram,
-  faXTwitter,
-  faFacebookF,
-} from "@fortawesome/free-brands-svg-icons";
-import {
   faBars,
   faTimes,
   faSun,
@@ -18,35 +12,13 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import DropdownMenu from "./DropdownMenu.vue";
 import { useWindowScroll } from "@vueuse/core";
 
-library.add(
-  faFacebookF,
-  faXTwitter,
-  faLinkedinIn,
-  faInstagram,
-  faBars,
-  faTimes,
-  faSun,
-  faMoon
-);
+library.add(faBars, faTimes, faSun, faMoon);
 
 const isMenuOpen = ref(false);
 const isDarkMode = ref(false);
 const isNavVisible = ref(true);
 const lastScrollY = ref(0);
 const { y: scrollY } = useWindowScroll();
-
-const socialLinks = [
-  { icon: ["fab", "x-twitter"], url: "https://x.com/parrainsdunum" },
-  {
-    icon: ["fab", "linkedin-in"],
-    url: "https://www.linkedin.com/company/parrainsdunum/",
-  },
-  { icon: ["fab", "instagram"], url: "https://www.instagram.com/team_irc/" },
-  {
-    icon: ["fab", "facebook-f"],
-    url: "https://www.facebook.com/profile.php?id=100066600245148",
-  },
-];
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -118,27 +90,12 @@ onUnmounted(() => {
 
       <!-- Right Section -->
       <div class="nav-right">
-        <!-- Social Icons -->
-        <div class="social-icons">
-          <a
-            v-for="(social, index) in socialLinks"
-            :key="index"
-            :href="social.url"
-            class="social-icon"
-            target="_blank"
-          >
-            <font-awesome-icon :icon="social.icon" />
-          </a>
-        </div>
-
+        <!-- Adhesion Button -->
+        <a href="#" class="adhesion-button"> Adhésion </a>
         <!-- Dark Mode Toggle -->
         <button @click="toggleDarkMode" class="theme-toggle">
           <font-awesome-icon :icon="isDarkMode ? 'sun' : 'moon'" />
         </button>
-
-        <!-- Adhesion Button -->
-        <a href="#" class="adhesion-button"> Adhésion </a>
-
         <!-- Mobile Menu Toggle -->
         <button class="mobile-menu-toggle" @click="toggleMenu">
           <font-awesome-icon :icon="isMenuOpen ? 'times' : 'bars'" />
@@ -200,7 +157,7 @@ onUnmounted(() => {
 }
 
 .nav-button {
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   cursor: pointer;
   user-select: none;
 }
@@ -273,39 +230,6 @@ onUnmounted(() => {
   gap: 1.5rem;
 }
 
-.social-icons {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.social-icon {
-  transition: all 0.3s ease;
-  position: relative;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.social-icon::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  transform: scale(0);
-  transition: transform 0.3s ease;
-}
-
-.social-icon:hover::before {
-  transform: scale(1);
-}
-
-.social-icon svg {
-  z-index: 1;
-}
-
 .theme-toggle {
   border: none;
   padding: 0.5rem;
@@ -358,14 +282,6 @@ onUnmounted(() => {
   color: #ccc;
 }
 
-.dark .social-icon {
-  color: #ccc;
-}
-
-.dark .social-icon::before {
-  background: #333;
-}
-
 /* Mobile Styles */
 @media (max-width: 1024px) {
   :deep(.overlay) {
@@ -395,10 +311,6 @@ onUnmounted(() => {
 
   .mobile-menu-toggle {
     display: block;
-  }
-
-  .social-icons {
-    display: none;
   }
 
   .nav-item {

@@ -5,6 +5,7 @@ import Menu from "./components/Menu.vue";
 import { RouterView } from "vue-router";
 import Navigation from "./components/Navigation.vue";
 import Footer2 from "./components/Footer2.vue";
+import SocialBar from "./components/SocialBar.vue";
 let v2 = ref(false);
 let theme = ref("theme1");
 </script>
@@ -22,6 +23,7 @@ let theme = ref("theme1");
     </router-view>
     <Footer v-if="v2" />
     <Footer2 v-else />
+    <SocialBar />
 
     <!-- Theme Switcher -->
     <div id="toggler">
